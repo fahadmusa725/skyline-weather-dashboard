@@ -7,7 +7,7 @@ A real-time weather dashboard for **Skyline**, built with live data from the [Op
 ![Status](https://img.shields.io/badge/status-complete-brightgreen) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
 
 ## Live Demo
-[View Live Site](#) <!-- add your deployed link here -->
+[skyline-weather-dashboard.netlify.app](https://skyline-weather-dashboard.netlify.app)
 
 ## Features
 
@@ -23,6 +23,17 @@ A real-time weather dashboard for **Skyline**, built with live data from the [Op
 - **`localStorage`** for recent searches and unit (°C/°F) preference
 - **Keyboard shortcuts** — `/` to search, `U` to toggle units, `L` for location, `R` to refresh
 - Fully responsive, with a horizontally scrollable hourly strip on mobile
+
+## Screenshots
+
+### Desktop
+![Desktop View](screenshots/desktop-hero.png)
+
+### Key Feature
+![Feature](screenshots/feature.png)
+
+### Mobile
+![Mobile View](screenshots/mobile-view.png)
 
 ## API
 
@@ -62,4 +73,4 @@ Then open `http://localhost:3000` in your browser.
 ---
 
 **Part of a 4-project internship submission for Auspify Technologies.**
-See also: [PulseTrack](#) · [Flowboard](#) · [Cadence](#)
+See also: [PulseTrack](https://github.com/fahadmusa725/pulsetrack-landing-page) · [Flowboard](https://github.com/fahadmusa725/flowboard-task-manager) · [Cadence](https://github.com/fahadmusa725/cadence-ecommerce-store)
