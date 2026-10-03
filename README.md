@@ -1,6 +1,6 @@
-# Skyline — Real-Time Weather Intelligence Dashboard
+# Skyline: Real-Time Weather Intelligence Dashboard
 
-> **Auspify Technologies Internship — Task 4 (Weather Dashboard Using API)**
+> **Auspify Technologies Internship: Task 4 (Weather Dashboard Using API)**
 
 A real-time weather dashboard for **Skyline**, built with live data from the [Open-Meteo](https://open-meteo.com) API (no API key required). Styled as a data-dense analytics dashboard rather than a typical cartoonish weather widget, with condition-adaptive ambient theming.
 
@@ -11,17 +11,17 @@ A real-time weather dashboard for **Skyline**, built with live data from the [Op
 
 ## Features
 
-- **Live weather data** via the Open-Meteo API — current conditions, 24-hour hourly forecast, and 7-day outlook
+- **Live weather data** via the Open-Meteo API: current conditions, 24-hour hourly forecast, and 7-day outlook
 - **Geocoding search** with debounced city autocomplete suggestions
 - **Browser Geolocation** ("Use my location") with reverse geocoding
-- **Condition-adaptive theming** — the ambient background glow shifts based on current weather (warm for clear skies, deep blue for rain, violet for storms, icy cyan for snow)
+- **Condition-adaptive theming**: the ambient background glow shifts based on current weather (warm for clear skies, deep blue for rain, violet for storms, icy cyan for snow)
 - **Interactive SVG sparkline** for the 24-hour temperature trend, with hover tooltips
 - **Animated sun arc** showing real sunrise/sunset position from the API
 - **Wind compass** with a needle rotated to the actual wind direction
 - **Skeleton loading states** while data is being fetched
-- **Styled error handling** for invalid cities and network failures — no `alert()` popups
+- **Styled error handling** for invalid cities and network failures, with no `alert()` popups
 - **`localStorage`** for recent searches and unit (°C/°F) preference
-- **Keyboard shortcuts** — `/` to search, `U` to toggle units, `L` for location, `R` to refresh
+- **Keyboard shortcuts**: `/` to search, `U` to toggle units, `L` for location, `R` to refresh
 - Fully responsive, with a horizontally scrollable hourly strip on mobile
 
 ## Screenshots
@@ -37,10 +37,10 @@ A real-time weather dashboard for **Skyline**, built with live data from the [Op
 
 ## API
 
-- **Weather + Forecast:** [Open-Meteo](https://open-meteo.com) — free, no API key required
-- **Reverse Geocoding:** [BigDataCloud](https://www.bigdatacloud.com/) — free, no API key required
+- **Weather + Forecast:** [Open-Meteo](https://open-meteo.com), free, no API key required
+- **Reverse Geocoding:** [BigDataCloud](https://www.bigdatacloud.com/), free, no API key required
 
-No credentials or `.env` setup needed — the app works out of the box.
+No credentials or `.env` setup needed. The app works out of the box.
 
 ## Project Structure
 

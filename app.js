@@ -1,14 +1,11 @@
 /**
- * SKYLINE — Real-Time Weather Intelligence Dashboard
+ * SKYLINE: Real-Time Weather Intelligence Dashboard
  * Open-Meteo Integration with Condition-Adaptive Theming & Data Visualizations
  */
 
 (function () {
   'use strict';
 
-  // =========================================================================
-  // APP STATE & CONFIGURATION
-  // =========================================================================
   const STATE = {
     unit: localStorage.getItem('skyline_unit') || 'c', // 'c' or 'f'
     currentLocation: {
@@ -57,9 +54,6 @@
     99: { label: 'Severe Thunderstorm', category: 'storm', icon: 'storm-hail', phrase: 'Intense electrical activity, torrential rain & hail' }
   };
 
-  // =========================================================================
-  // DOM ELEMENT SELECTORS
-  // =========================================================================
   const DOM = {
     html: document.documentElement,
     citySearchInput: document.getElementById('citySearchInput'),
@@ -140,10 +134,6 @@
     dailyCardsGrid: document.getElementById('dailyCardsGrid')
   };
 
-  // =========================================================================
-  // SVG WEATHER ICONS GENERATOR
-  // Clean, consistent, ultra-crisp line stroke icons
-  // =========================================================================
   function getSvgIcon(iconName, isDay = 1) {
     const isNight = isDay === 0;
 
@@ -232,9 +222,6 @@
     }
   }
 
-  // =========================================================================
-  // UNIT CONVERSION UTILITIES
-  // =========================================================================
   function formatTemp(celsiusVal) {
     if (celsiusVal === undefined || celsiusVal === null || isNaN(celsiusVal)) return '--';
     if (STATE.unit === 'f') {
@@ -280,9 +267,6 @@
     return `${uv} (Extreme)`;
   }
 
-  // =========================================================================
-  // WEATHER API & DATA FETCHING
-  // =========================================================================
   async function fetchWeatherData(lat, lon, locationInfo = null) {
     setLoadingState(true);
     hideNotification();
@@ -328,9 +312,6 @@
     }
   }
 
-  // =========================================================================
-  // RENDERING LOGIC
-  // =========================================================================
   function renderAllWeatherViews() {
     if (!STATE.weatherData) return;
 
@@ -339,7 +320,6 @@
     const daily = data.daily;
     const hourly = data.hourly;
 
-    // 1. Determine Condition and apply Dynamic Theme
     const wCode = current.weather_code;
     const condition = WMO_MAP[wCode] || { label: 'Clear Sky', category: 'clear', icon: 'sun', phrase: 'Clear skies' };
     
@@ -353,7 +333,6 @@
     else if (condition.category === 'fog') themeClass = 'theme-fog';
     DOM.html.setAttribute('data-theme', themeClass);
 
-    // 2. Render Hero Card
     DOM.cityName.textContent = STATE.currentLocation.name;
     DOM.countryTag.textContent = STATE.currentLocation.countryCode || (STATE.currentLocation.country ? STATE.currentLocation.country.slice(0, 2).toUpperCase() : 'LOC');
     
@@ -380,7 +359,6 @@
     DOM.telemetryUV.textContent = getUVRating(todayUV);
     DOM.telemetryPressure.textContent = `${Math.round(current.surface_pressure)} hPa`;
 
-    // 3. Render Sun Arc Progression
     const sunriseStr = daily.sunrise[0];
     const sunsetStr = daily.sunset[0];
     if (sunriseStr && sunsetStr) {
@@ -425,7 +403,6 @@
       DOM.sunPointIndicator.style.top = `${indicatorY}%`;
     }
 
-    // 4. Render Wind Velocity & Compass
     const windDeg = current.wind_direction_10m || 0;
     DOM.compassNeedle.style.transform = `rotate(${windDeg}deg)`;
     DOM.windBeaufortScale.textContent = getBeaufortScale(current.wind_speed_10m);
@@ -436,7 +413,6 @@
     DOM.windGustsValue.innerHTML = `${gustInfo.value} <small id="windGustsUnit">${gustInfo.unit}</small>`;
     DOM.windDirectionDeg.textContent = getWindDirection(windDeg);
 
-    // 5. Precipitation Insight & Dew Point
     const precipSum = daily.precipitation_sum ? daily.precipitation_sum[0] : 0;
     DOM.precipSumBadge.textContent = `${precipSum.toFixed(1)} mm`;
 
@@ -451,16 +427,13 @@
     DOM.surfacePressureVal.textContent = `${Math.round(current.surface_pressure)} hPa`;
     DOM.visibilityVal.textContent = '10.0+ km';
 
-    // 6. Data Briefing Text
     const unitSymbol = `°${STATE.unit.toUpperCase()}`;
     const brief = `${STATE.currentLocation.name} is currently experiencing ${formatTemp(current.temperature_2m)}${unitSymbol} (${condition.label.toLowerCase()}) with ${current.relative_humidity_2m}% humidity. Today will peak at ${formatTemp(daily.temperature_2m_max[0])}${unitSymbol} with ${getBeaufortScale(current.wind_speed_10m).toLowerCase()}.`;
     DOM.briefingText.textContent = brief;
     DOM.dataTimestamp.textContent = `Synced ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
 
-    // 7. Render Hourly Sparkline & Timeline Cards
     renderHourlyViews(hourly, currentHourIdx);
 
-    // 8. Render 7-Day Forecast Grid
     renderDailyForecast(daily);
   }
 
@@ -472,9 +445,6 @@
     return idx >= 0 ? idx : 0;
   }
 
-  // =========================================================================
-  // HOURLY FORECAST & SPARKLINE CHART
-  // =========================================================================
   function renderHourlyViews(hourly, currentIdx) {
     const next24Temps = [];
     const next24Hours = [];
@@ -648,9 +618,6 @@
     };
   }
 
-  // =========================================================================
-  // 7-DAY EXTENDED FORECAST
-  // =========================================================================
   function renderDailyForecast(daily) {
     if (!daily || !daily.time) return;
 
@@ -710,9 +677,6 @@
     DOM.dailyCardsGrid.innerHTML = html;
   }
 
-  // =========================================================================
-  // SEARCH AUTOCOMPLETE & EVENTS
-  // =========================================================================
   let debounceTimeout = null;
 
   function initSearchHandlers() {
@@ -832,9 +796,6 @@
     }
   }
 
-  // =========================================================================
-  // GEOLOCATION & QUICK HUBS
-  // =========================================================================
   function initGeolocation() {
     DOM.geoBtn.addEventListener('click', () => {
       if (!navigator.geolocation) {
@@ -911,9 +872,6 @@
     });
   }
 
-  // =========================================================================
-  // RECENT SEARCHES IN LOCALSTORAGE
-  // =========================================================================
   function saveRecentCity(loc) {
     if (!loc || !loc.name) return;
     let recents = STATE.recentCities.filter(c => c.name.toLowerCase() !== loc.name.toLowerCase());
@@ -964,9 +922,6 @@
     });
   }
 
-  // =========================================================================
-  // UNIT TOGGLE & ACTIONS
-  // =========================================================================
   function initUnitToggle() {
     const updateButtons = () => {
       if (STATE.unit === 'c') {
@@ -1093,9 +1048,6 @@
     }
   }
 
-  // =========================================================================
-  // INITIALIZATION
-  // =========================================================================
   function init() {
     initSearchHandlers();
     initGeolocation();
